@@ -11,7 +11,7 @@ edit_line_color    | color\|reference   | public void setLineColor(int lineColor
 edit_line_focus_color     | color\|reference   |    public void setLineFocusColor(int lineFocusColor)
 edit_circle_color     | color\|reference |public void setCircleColor(int circleColor)
 edit_circle_focus_color     |  color\|reference      |  public void setCircleFocusColor(int circleFocusColor)
-edit_background_radius     | integer    | public void setDirectionType(int direction)
+edit_background_radius     | integer    |       public void setPasswordRadius(int passwordRadius)
 edit_circle_size   |       dimension\|integer |     public void setCircleSize(int circleSize)
 edit_max_length  | integer    |     public void setMaxLen(int password_max_len)
 

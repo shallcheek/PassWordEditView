@@ -83,8 +83,8 @@ public class PassWordEditView extends EditText implements TextWatcher {
         backgroundColor = a.getColor(R.styleable.PassWordEditView_edit_background, 0xffF5F7F9);
         lineColor = a.getColor(R.styleable.PassWordEditView_edit_line_color, 0xffF5F7F9);
         lineFocusColor = a.getColor(R.styleable.PassWordEditView_edit_line_focus_color, lineColor);
-        passwordRadius = a.getDimensionPixelSize(R.styleable.PassWordEditView_edit_circle_size, dip2px(5));
-        circleSize = a.getDimensionPixelSize(R.styleable.PassWordEditView_edit_background_radius, dip2px(2));
+        circleSize = a.getDimensionPixelSize(R.styleable.PassWordEditView_edit_circle_size, dip2px(5));
+        passwordRadius = a.getDimensionPixelSize(R.styleable.PassWordEditView_edit_background_radius, dip2px(2));
         circleColor = a.getColor(R.styleable.PassWordEditView_edit_circle_color, 0xff000000);
         circleFocusColor = a.getColor(R.styleable.PassWordEditView_edit_circle_focus_color, circleColor);
 
@@ -207,6 +207,16 @@ public class PassWordEditView extends EditText implements TextWatcher {
     }
 
     /**
+     * 背景圆角大小
+     *
+     * @param passwordRadius 大小
+     */
+    public void setPasswordRadius(int passwordRadius) {
+        this.passwordRadius = passwordRadius;
+        invalidate();
+    }
+
+    /**
      * 控件获取焦点后 线条和边线颜色
      *
      * @param lineFocusColor 颜色
@@ -243,7 +253,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
         //背景
         passwordPaint.setColor(backgroundColor);
         passwordPaint.setStyle(Paint.Style.FILL);
-        canvas.drawRoundRect(rectStrokeF, circleSize, circleSize, passwordPaint);
+        canvas.drawRoundRect(rectStrokeF, passwordRadius, passwordRadius, passwordPaint);
         //边框颜色
 
         if (isFocused()) {
@@ -253,7 +263,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
         }
         passwordPaint.setStrokeWidth(1);
         passwordPaint.setStyle(Paint.Style.STROKE);
-        canvas.drawRoundRect(rectF, circleSize, circleSize, passwordPaint);
+        canvas.drawRoundRect(rectF, passwordRadius, passwordRadius, passwordPaint);
 
         int w = width / password_max_len;
         int h = getHeight() / 2;
@@ -271,11 +281,8 @@ public class PassWordEditView extends EditText implements TextWatcher {
         passwordRoundPaint.setAlpha((255));
         //密码点
         for (int i = 0; i < passWordCount; i++) {
-            canvas.drawCircle(i * w + w / 2, h, passwordRadius, passwordRoundPaint);// 小圆
+            canvas.drawCircle(i * w + w / 2, h, circleSize, passwordRoundPaint);// 小圆
         }
-        //动画
-        passwordRoundPaint.setAlpha((int) (255 * progress));
-        canvas.drawCircle((passWordCount - 1) * w + w / 2, h, passwordRadius, passwordRoundPaint);// 小圆
 
     }
 
