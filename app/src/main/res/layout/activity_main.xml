@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#eeeeee"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.cheek.android.example.MainActivity">
+
+
+    <com.chaek.android.passwordeditview.PassWordEditView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:edit_background="#ffF5F7F9"
+        app:edit_background_radius="3dp"
+        app:edit_circle_color="#fa760a"
+        app:edit_circle_size="5dp"
+        app:edit_line_color="#ffE1E4E8"
+        app:edit_line_focus_color="#ffBEC5CD"
+        app:edit_max_length="6" />
+</RelativeLayout>

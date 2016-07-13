@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PassWordEditView">
+        <attr name="edit_background" format="color|reference" />
+        <attr name="edit_line_color" format="color|reference" />
+        <attr name="edit_line_focus_color" format="color|reference" />
+        <attr name="edit_circle_color" format="color|reference" />
+        <attr name="edit_circle_focus_color" format="color|reference" />
+        <attr name="edit_background_radius" format="dimension|integer" />
+        <attr name="edit_circle_size" format="dimension|integer" />
+        <attr name="edit_max_length" format="integer" />
+
+
+    </declare-styleable>
+
+</resources>
