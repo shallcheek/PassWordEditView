@@ -33,8 +33,8 @@ edit_max_length  | integer    |     public void setMaxLen(int password_max_len)
 ##Demo
 
 
-<img src="./img/1.png" width="40%"><img>
+<img src="./img/1.jpg" width="40%"><img>
 
-<img src="./img/2.png" width="40%"><img>
+<img src="./img/2.jpg" width="40%"><img>
  
  
