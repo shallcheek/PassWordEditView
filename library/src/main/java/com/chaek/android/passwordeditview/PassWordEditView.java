@@ -18,6 +18,7 @@ import android.widget.EditText;
  * 密码输入
  */
 public class PassWordEditView extends EditText implements TextWatcher {
+    public static final int MAX_LEN = 12;
     public int password_max_len = 6;
 
     private int width;
@@ -101,8 +102,8 @@ public class PassWordEditView extends EditText implements TextWatcher {
 
     private void init() {
 
-        if (password_max_len > 10) {
-            password_max_len = 10;
+        if (password_max_len > MAX_LEN) {
+            password_max_len = MAX_LEN;
         }
 
         passwordPaint = new Paint();
@@ -239,11 +240,14 @@ public class PassWordEditView extends EditText implements TextWatcher {
     /**
      * 输入的最大长度
      *
-     * @param password_max_len
+     * @param password_max_len 密码长度
      */
     public void setMaxLen(int password_max_len) {
         this.password_max_len = password_max_len;
         this.setFilters(new InputFilter[]{new InputFilter.LengthFilter(password_max_len)});
+        if (password_max_len > MAX_LEN) {
+            this.password_max_len = MAX_LEN;
+        }
         invalidate();
     }
 
@@ -278,8 +282,8 @@ public class PassWordEditView extends EditText implements TextWatcher {
         } else {
             passwordRoundPaint.setColor(circleColor);
         }
-        passwordRoundPaint.setAlpha((255));
-        //密码点
+
+        //密码圆点
         for (int i = 0; i < passWordCount; i++) {
             canvas.drawCircle(i * w + w / 2, h, circleSize, passwordRoundPaint);// 小圆
         }
@@ -299,6 +303,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
         isComplete = passWordCount == password_max_len;
         if (passWordChangeListener != null)
             passWordChangeListener.onTextChange();
+        invalidate();
     }
 
 

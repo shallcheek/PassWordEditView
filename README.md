@@ -1,5 +1,5 @@
 # PasswordEditView
-PasswordEditView
+类似微信支付宝支付密码输入框，可以自定义密码长度，边框颜色，背景颜色，密码颜色等。
 
 
 ##Attributes
