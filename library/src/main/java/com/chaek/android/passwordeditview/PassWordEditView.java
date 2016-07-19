@@ -26,7 +26,6 @@ public class PassWordEditView extends EditText implements TextWatcher {
     private int passWordCount = 0;
 
     private RectF rectF;
-    private RectF rectStrokeF;
     private Paint passwordPaint;
     private Paint passwordRoundPaint;
     private int circleSize;
@@ -112,7 +111,6 @@ public class PassWordEditView extends EditText implements TextWatcher {
         passwordRoundPaint.setAntiAlias(true);
 
         rectF = new RectF();
-        rectStrokeF = new RectF();
 
 
         //隐藏光标
@@ -120,7 +118,13 @@ public class PassWordEditView extends EditText implements TextWatcher {
         this.setFilters(new InputFilter[]{new InputFilter.LengthFilter(password_max_len)});
         setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         addTextChangedListener(this);
+        setTextColor(0x00000000);
         setBackgroundColor(0x00000000);
+    }
+
+    @Override
+    public void setTextColor(int color) {
+        super.setTextColor(0x00000000);
     }
 
     @Override
@@ -152,18 +156,14 @@ public class PassWordEditView extends EditText implements TextWatcher {
         width = getWidth();
         height = getHeight();
         int min = Math.min(width / password_max_len, height);
-        if (passwordRadius > min / 2)
-            passwordRadius = min / 2;
+        if (circleSize > min / 2)
+            circleSize = min / 2;
 
-        rectF.top = 1;
-        rectF.left = 1;
-        rectF.right = width - 2;
-        rectF.bottom = height - 2;
+        rectF.top = 0;
+        rectF.left = 0;
+        rectF.right = width;
+        rectF.bottom = height;
 
-        rectStrokeF.top = 1;
-        rectStrokeF.left = 1;
-        rectStrokeF.right = width;
-        rectStrokeF.bottom = height;
 
     }
 
@@ -257,7 +257,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
         //背景
         passwordPaint.setColor(backgroundColor);
         passwordPaint.setStyle(Paint.Style.FILL);
-        canvas.drawRoundRect(rectStrokeF, passwordRadius, passwordRadius, passwordPaint);
+        canvas.drawRoundRect(rectF, passwordRadius, passwordRadius, passwordPaint);
         //边框颜色
 
         if (isFocused()) {
@@ -265,16 +265,18 @@ public class PassWordEditView extends EditText implements TextWatcher {
         } else {
             passwordPaint.setColor(lineColor);
         }
-        passwordPaint.setStrokeWidth(1);
+        passwordPaint.setStrokeWidth(2f);
         passwordPaint.setStyle(Paint.Style.STROKE);
         canvas.drawRoundRect(rectF, passwordRadius, passwordRadius, passwordPaint);
 
         int w = width / password_max_len;
         int h = getHeight() / 2;
-
         //分割线
-        for (int i = 0; i < password_max_len; i++) {
-            canvas.drawLine(i * w + w, 1, i * w + w + 1, height - 3, passwordPaint);
+        passwordPaint.setStrokeWidth(1f);
+        passwordPaint.setStyle(Paint.Style.FILL);
+
+        for (int i = 0; i < password_max_len - 1; i++) {
+            canvas.drawLine(i * w + w, 1, i * w + w, height, passwordPaint);
         }
         //圆点颜色
         if (isFocusable()) {
@@ -301,8 +303,12 @@ public class PassWordEditView extends EditText implements TextWatcher {
         passWordCount = s.length();
         //完成
         isComplete = passWordCount == password_max_len;
-        if (passWordChangeListener != null)
+        if (passWordChangeListener != null) {
             passWordChangeListener.onTextChange();
+            if (isComplete()) {
+                passWordChangeListener.onComplete();
+            }
+        }
         invalidate();
     }
 
@@ -314,6 +320,8 @@ public class PassWordEditView extends EditText implements TextWatcher {
 
     public interface PassWordChangeListener {
         void onTextChange();
+
+        void onComplete();
     }
 
 

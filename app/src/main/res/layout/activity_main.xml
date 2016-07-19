@@ -17,9 +17,9 @@
         android:layout_height="40dp"
         app:edit_background="#ffF5F7F9"
         app:edit_background_radius="3dp"
-        app:edit_circle_color="#fa760a"
-        app:edit_circle_size="5dp"
-        app:edit_line_color="#ffE1E4E8"
+        app:edit_circle_color="#000000"
+        app:edit_circle_size="6dp"
+        app:edit_line_color="#45ce59"
         app:edit_line_focus_color="#ffBEC5CD"
         app:edit_max_length="6" />
 </RelativeLayout>
