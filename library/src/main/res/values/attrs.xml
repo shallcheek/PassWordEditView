@@ -9,8 +9,6 @@
         <attr name="edit_background_radius" format="dimension|integer" />
         <attr name="edit_circle_size" format="dimension|integer" />
         <attr name="edit_max_length" format="integer" />
-
-
     </declare-styleable>
 
 </resources>

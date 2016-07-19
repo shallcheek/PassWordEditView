@@ -12,7 +12,7 @@
     tools:context="com.cheek.android.example.MainActivity">
 
 
-    <com.chaek.android.passwordeditview.PassWordEditView
+    <com.chaek.android.widget.PassWordEditView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:edit_background="#ffF5F7F9"
