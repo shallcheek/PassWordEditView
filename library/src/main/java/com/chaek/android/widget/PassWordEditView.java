@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -15,7 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.chaek.android.R;
-
 
 public class PassWordEditView extends EditText implements TextWatcher {
     public static final int MAX_LEN = 12;
@@ -92,7 +92,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
 
     @Override
     public void setInputType(int type) {
-        super.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        super.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_VARIATION_PASSWORD);
     }
 
     private void init() {
@@ -124,14 +124,12 @@ public class PassWordEditView extends EditText implements TextWatcher {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         int action = event.getAction();
-        if (action == MotionEvent.ACTION_MOVE) {
-            setSelection(getText().toString().length());
-            setFocusable(true);
-            setFocusableInTouchMode(true);
-            requestFocus();
-            InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.showSoftInput(this, 0);
-        }
+        setSelection(getText().toString().length());
+        setFocusable(true);
+        setFocusableInTouchMode(true);
+        requestFocus();
+        InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(this, 0);
         return true;
 
     }

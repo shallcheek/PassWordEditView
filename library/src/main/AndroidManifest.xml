@@ -2,7 +2,7 @@
     package="com.chaek.android">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:label="@string/app_name"
         android:supportsRtl="true">
     </application>
