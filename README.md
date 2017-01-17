@@ -4,7 +4,7 @@
 ##Gradle
 ```java
 dependencies{
-  compile 'com.chaek.android:passwordeditview:1.0.0'
+  compile 'com.chaek.android:passwordeditview:1.0.1'
 }
 ```
 
