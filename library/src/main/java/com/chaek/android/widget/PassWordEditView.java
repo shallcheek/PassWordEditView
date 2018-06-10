@@ -39,7 +39,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
     private int lineFocusColor = 0xffE1E4E8;
     private int circleColor;
     private int circleFocusColor;
-
+    private float editLineSize = 2;
 
     /**
      * add password change listener
@@ -82,8 +82,10 @@ public class PassWordEditView extends EditText implements TextWatcher {
         lineFocusColor = a.getColor(R.styleable.PassWordEditView_edit_line_focus_color, lineColor);
         circleSize = a.getDimensionPixelSize(R.styleable.PassWordEditView_edit_circle_size, dip2px(5));
         passwordRadius = a.getDimensionPixelSize(R.styleable.PassWordEditView_edit_background_radius, dip2px(2));
+        editLineSize = a.getDimensionPixelSize(R.styleable.PassWordEditView_edit_line_size, dip2px(1));
         circleColor = a.getColor(R.styleable.PassWordEditView_edit_circle_color, 0xff000000);
         circleFocusColor = a.getColor(R.styleable.PassWordEditView_edit_circle_focus_color, circleColor);
+
 
         a.recycle();
         init();
@@ -92,7 +94,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
 
     @Override
     public void setInputType(int type) {
-        super.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        super.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
     }
 
     private void init() {
@@ -123,13 +125,14 @@ public class PassWordEditView extends EditText implements TextWatcher {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        int action = event.getAction();
         setSelection(getText().toString().length());
         setFocusable(true);
         setFocusableInTouchMode(true);
         requestFocus();
         InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.showSoftInput(this, 0);
+        if (inputManager != null) {
+            inputManager.showSoftInput(this, 0);
+        }
         return true;
 
     }
@@ -152,8 +155,6 @@ public class PassWordEditView extends EditText implements TextWatcher {
         rectF.left = 0;
         rectF.right = width;
         rectF.bottom = height;
-
-
     }
 
     /**
@@ -227,8 +228,15 @@ public class PassWordEditView extends EditText implements TextWatcher {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        rectF.left = editLineSize / 2f;
+        rectF.right = width - editLineSize / 2f;
+        rectF.top = editLineSize / 2f;
+        rectF.bottom = height - editLineSize / 2f;
+
         passwordPaint.setColor(backgroundColor);
         passwordPaint.setStyle(Paint.Style.FILL);
+        //draw background
         canvas.drawRoundRect(rectF, passwordRadius, passwordRadius, passwordPaint);
 
         if (isFocused()) {
@@ -236,17 +244,19 @@ public class PassWordEditView extends EditText implements TextWatcher {
         } else {
             passwordPaint.setColor(lineColor);
         }
-        passwordPaint.setStrokeWidth(2f);
         passwordPaint.setStyle(Paint.Style.STROKE);
+        passwordPaint.setStrokeWidth(editLineSize);
         canvas.drawRoundRect(rectF, passwordRadius, passwordRadius, passwordPaint);
 
-        int w = width / password_max_len;
+        float w = (width - (2 * editLineSize)) / password_max_len;
         int h = getHeight() / 2;
-        passwordPaint.setStrokeWidth(1f);
-        passwordPaint.setStyle(Paint.Style.FILL);
 
+        canvas.save();
+        canvas.translate(editLineSize, 0);
+        passwordPaint.setStyle(Paint.Style.FILL);
         for (int i = 0; i < password_max_len - 1; i++) {
-            canvas.drawLine(i * w + w, 1, i * w + w, height, passwordPaint);
+            float left = (i + 1) * w;
+            canvas.drawRect(left - editLineSize / 2f, rectF.top, left + editLineSize / 2f, rectF.bottom, passwordPaint);
         }
         if (isFocusable()) {
             passwordRoundPaint.setColor(circleFocusColor);
@@ -257,6 +267,7 @@ public class PassWordEditView extends EditText implements TextWatcher {
         for (int i = 0; i < passWordCount; i++) {
             canvas.drawCircle(i * w + w / 2, h, circleSize, passwordRoundPaint);// 小圆
         }
+        canvas.restore();
 
     }
 
@@ -270,20 +281,18 @@ public class PassWordEditView extends EditText implements TextWatcher {
         password = s.toString();
         passWordCount = s.length();
         isComplete = passWordCount == password_max_len;
-
-        if (passWordChangeListener != null) {
-            passWordChangeListener.onTextChange();
-            if (isComplete()) {
-                passWordChangeListener.onComplete();
-            }
-        }
         invalidate();
     }
 
 
     @Override
     public void afterTextChanged(Editable s) {
-
+        if (passWordChangeListener != null) {
+            passWordChangeListener.onTextChange();
+            if (isComplete()) {
+                passWordChangeListener.onComplete();
+            }
+        }
     }
 
     public interface PassWordChangeListener {
