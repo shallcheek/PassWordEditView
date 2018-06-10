@@ -1,18 +1,18 @@
 # PasswordEditView
 类似微信支付宝支付密码输入框，可以自定义密码长度，边框颜色，背景颜色，密码颜色等。
 
-##Gradle
+## Gradle
 ```java
 dependencies{
-  compile 'com.chaek.android:passwordeditview:1.0.0'
+  compile 'com.chaek.android:passwordeditview:1.0.1'
 }
 ```
 
 
-##Attributes
+## Attributes
 
 name     | format  |java code
---- | ---   |---           |---
+--- | ---   |---
 edit_background | color\|reference |   public void setBackground(int background)
 edit_line_color    | color\|reference   | public void setLineColor(int lineColor)
 edit_line_focus_color     | color\|reference   |    public void setLineFocusColor(int lineFocusColor)
@@ -24,7 +24,7 @@ edit_max_length  | integer    |     public void setMaxLen(int password_max_len)
 
 
 
-##XML
+## XML
 ```xml
        <com.chaek.android.passwordeditview.PassWordEditView
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@ edit_max_length  | integer    |     public void setMaxLen(int password_max_len)
         app:edit_line_focus_color="#ffBEC5CD"
         app:edit_max_length="6" />
 ```
-##Demo
+## Demo
 
 
 <img src="./img/1.jpg" width="40%"><img>
